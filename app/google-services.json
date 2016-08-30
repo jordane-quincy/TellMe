@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "746061302789",
+    "firebase_url": "https://tellme-5feb0.firebaseio.com",
+    "project_id": "tellme-5feb0",
+    "storage_bucket": "tellme-5feb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746061302789:android:c75e9262e16e326b",
+        "android_client_info": {
+          "package_name": "com.github.jordane_quincy.tellme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746061302789-g76qrvet1bm9v56pi0vpp5shv12ovdk5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIl3LWnjG5pPQRzheZLkj0KKrWl-ceNLI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
