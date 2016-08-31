@@ -29,5 +29,12 @@
             android:layout_height="wrap_content"
             android:text="lancer service ID"
             android:id="@+id/button" />
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/webView"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 </RelativeLayout>
