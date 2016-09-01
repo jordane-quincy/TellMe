@@ -12,11 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -35,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private WebView webView;
 
 
+    String pathToSavedFile = Environment
+            .getExternalStorageDirectory().toString()
+            + "/test.html";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
                 //thread.start();
                 //launchIntent();
                 Log.d(TAG, "clic sur le bouton");
-                new DownloadFileFromURL().execute("https://raw.githubusercontent.com/jordane-quincy/TellMeWeb/master/TellMe.html");
-
+                checkIfFileDownloadIsNeeded();
+                //rendu :
+                webView.reload();
                 //}
             }
         });
@@ -58,14 +66,34 @@ public class MainActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webView);
 
         //Activation du JS dans la web view
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptEnabled(true);
 
-        // affiche le code source :
-        // webView.loadUrl("https://raw.githubusercontent.com/jordane-quincy/TellMeWeb/master/TellMe.html");
+        //pas de cache (phase de debug quoi)
+        webView.clearCache(true);
 
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClient());
 
+        // ajout des objets java accessible depuis la page web en js
+        webView.addJavascriptInterface(new JsTestClass(this), "classeAndroid");
 
+        webView.loadUrl("file://"+ pathToSavedFile);
+
+    }
+
+    private void checkIfFileDownloadIsNeeded() {
+        boolean needToDownload = true;
+
+        File savedFile = new File(pathToSavedFile);
+        if(savedFile.exists()){
+            Log.d(TAG, "html file already downloaded at : "+ pathToSavedFile);
+            needToDownload = false;
+        }
+
+        if(needToDownload) {
+            Log.d(TAG, "html need download");
+            new DownloadFileFromURL().execute("https://raw.githubusercontent.com/jordane-quincy/TellMeWeb/master/TellMe.html");
+        }
     }
 
 
@@ -124,9 +152,6 @@ public class MainActivity extends AppCompatActivity {
                         8192);
 
                 // path to save the download file
-                String pathToSavedFile = Environment
-                        .getExternalStorageDirectory().toString()
-                        + "/test.html";
                 Log.d(TAG, "pathToSavedFile : "+ pathToSavedFile);
 
                 // Output stream

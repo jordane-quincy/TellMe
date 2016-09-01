@@ -43,5 +43,5 @@
     <!-- NOTE: demande permission de lecture/ecriture sur la carte sd a l'installation (api lvl 23) -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- NOTE: pour dl les maj du site -->
 </manifest>
